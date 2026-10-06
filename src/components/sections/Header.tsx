@@ -73,10 +73,8 @@ export function Header({ route }: { route: Route }) {
   return (
     <div ref={wrapRef}>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,padding] duration-500 ease-out ${
-          solid
-            ? 'bg-navy-950/95 py-3 shadow-[0_8px_30px_-12px_rgba(0,0,0,0.45)] backdrop-blur-md'
-            : 'bg-transparent py-4 sm:py-6'
+        className={`fixed inset-x-0 top-0 z-50 px-3 transition-[padding] duration-500 ease-out sm:px-5 ${
+          solid ? 'pt-3' : 'pt-3 sm:pt-5'
         }`}
       >
         <a
@@ -86,8 +84,15 @@ export function Header({ route }: { route: Route }) {
           Pular para o conteúdo
         </a>
 
-        <Container className="flex items-center justify-between gap-4">
-          <a href={isHome ? '#inicio' : to('/')} className="min-w-0 rounded-sm" onClick={() => setOpen(false)}>
+        {/* Barra flutuante em pílula; ganha vidro fosco ao rolar */}
+        <div
+          className={`mx-auto flex max-w-7xl items-center justify-between gap-4 rounded-full border py-2 pr-2 pl-4 transition-[background-color,border-color,box-shadow] duration-500 ease-out sm:pl-5 ${
+            solid
+              ? 'border-white/10 bg-navy-950/75 shadow-[0_20px_50px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl'
+              : 'border-white/[0.08] bg-white/[0.03]'
+          }`}
+        >
+          <a href={isHome ? '#inicio' : to('/')} className="min-w-0 rounded-full" onClick={() => setOpen(false)}>
             <Logo />
             <span className="sr-only"> — página inicial</span>
           </a>
@@ -101,7 +106,7 @@ export function Header({ route }: { route: Route }) {
                     <a
                       href={resolve(item.href)}
                       aria-current={current ? (item.href.startsWith('#') && isHome ? 'true' : 'page') : undefined}
-                      className={`nav-link relative rounded-sm px-3 py-2 text-[0.85rem] font-medium transition-colors ${
+                      className={`nav-link relative rounded-full px-3.5 py-2 text-[0.85rem] font-medium transition-colors ${
                         current ? 'text-white' : 'text-white/70 hover:text-white'
                       }`}
                     >
@@ -117,7 +122,7 @@ export function Header({ route }: { route: Route }) {
             <a
               href={to('/agendar/')}
               aria-current={route.kind === 'schedule' ? 'page' : undefined}
-              className="mr-2 hidden items-center gap-2 text-[0.85rem] font-semibold text-white/85 transition-colors hover:text-gold-500 xl:inline-flex"
+              className="mr-1 hidden min-h-11 items-center gap-2 rounded-full px-4 text-[0.85rem] font-medium text-white/85 transition-colors hover:bg-white/10 hover:text-white xl:inline-flex"
             >
               <Icon name="clock" size={17} />
               Agendar consulta
@@ -148,14 +153,14 @@ export function Header({ route }: { route: Route }) {
               <Icon name={open ? 'close' : 'menu'} size={24} />
             </button>
           </div>
-        </Container>
+        </div>
       </header>
 
         {/* Menu mobile — fora do <header>: o backdrop-filter dele prenderia este painel fixed */}
         <div
           id="mobile-menu"
           hidden={!open}
-          className="fixed inset-x-0 top-[68px] bottom-0 z-40 overflow-y-auto bg-navy-950 lg:hidden"
+          className="hero-bg fixed inset-0 z-40 overflow-y-auto bg-navy-950 pt-20 lg:hidden"
         >
           <Container className="flex min-h-full flex-col pt-6 pb-10">
             <nav aria-label="Navegação mobile">
@@ -165,7 +170,7 @@ export function Header({ route }: { route: Route }) {
                     <a
                       href={resolve(item.href)}
                       onClick={() => setOpen(false)}
-                      className="menu-item flex items-center justify-between py-4 font-serif text-[1.65rem] text-white"
+                      className="menu-item flex items-center justify-between py-4 font-display text-[1.75rem] tracking-[-0.03em] text-white"
                       style={{ animationDelay: `${i * 40}ms` }}
                     >
                       {item.label}

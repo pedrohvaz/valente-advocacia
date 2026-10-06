@@ -47,9 +47,9 @@ export function CookieBanner() {
           aria-modal="true"
           aria-labelledby={titleId}
           tabIndex={-1}
-          className="max-h-[90svh] w-full max-w-lg overflow-y-auto bg-white p-6 shadow-2xl outline-none sm:p-8"
+          className="max-h-[90svh] w-full max-w-lg overflow-y-auto rounded-4xl bg-white p-6 shadow-2xl outline-none sm:p-8"
         >
-          <h2 id={titleId} className="font-serif text-3xl text-navy-950">
+          <h2 id={titleId} className="font-display text-2xl tracking-[-0.03em] text-navy-950">
             Preferências de cookies
           </h2>
           <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -101,9 +101,9 @@ export function CookieBanner() {
     <div
       role="region"
       aria-label="Aviso de cookies"
-      className="panel-in fixed inset-x-3 bottom-3 z-[55] border border-white/10 bg-navy-950 p-5 text-white shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-md sm:p-6"
+      className="panel-in fixed inset-x-3 bottom-3 z-[55] rounded-3xl border border-white/10 bg-navy-950/95 p-5 backdrop-blur-xl text-white shadow-[0_20px_60px_-20px_rgba(0,0,0,0.6)] sm:inset-x-auto sm:bottom-6 sm:left-6 sm:max-w-md sm:p-6"
     >
-      <p className="font-serif text-xl">Sua privacidade</p>
+      <p className="font-display text-lg tracking-[-0.02em]">Sua privacidade</p>
       <p className="mt-2 text-sm leading-relaxed text-white/75">
         Usamos cookies necessários e, com sua permissão, cookies de estatística e de mídia externa (mapa). Saiba mais na{' '}
         <a href={to('/privacidade/')} className="text-white underline underline-offset-2">

@@ -72,7 +72,7 @@ export function Contact() {
           <Reveal as="ul" delay={100} className="mt-10 space-y-6">
             {items.map((item) => (
               <li key={item.label} className="flex gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-full border border-navy-950/10 bg-white text-navy-800">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white text-navy-800 shadow-[0_1px_2px_rgb(11_19_43/0.06)]">
                   <Icon name={item.icon} size={item.icon === 'whatsapp' ? 20 : 19} strokeWidth={1.5} />
                 </span>
                 <div className="min-w-0 pt-0.5">

@@ -1,176 +1,128 @@
-import { useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react'
-import { areaPath } from '../../data/areas'
+import { site } from '../../config/site'
+import { areaPath, type PracticeArea } from '../../data/areas'
 import { headings, practiceAreas } from '../../data/content'
+import { to } from '../../lib/paths'
 import { whatsappProps } from '../../lib/whatsapp'
 import { Button } from '../ui/Button'
 import { Container } from '../ui/Container'
 import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
 import { SectionHeading } from '../ui/SectionHeading'
-import { to } from '../../lib/paths'
 
 const pad = (n: number) => String(n).padStart(2, '0')
 
-/**
- * Índice editorial das áreas de atuação (padrão "tabs" acessível).
- * Desktop: lista à esquerda + painel fixo à direita.
- * Mobile: o mesmo painel aparece logo abaixo da área selecionada (acordeão).
- */
-export function PracticeAreas() {
-  const [active, setActive] = useState(0)
-  const uid = useId()
-  const tabRefs = useRef<(HTMLButtonElement | null)[]>([])
-  const area = practiceAreas[active]
-  const total = practiceAreas.length
+/** Cartão em destaque (primeira área): escuro, com foto e lista de serviços. */
+function FeaturedCard({ area }: { area: PracticeArea }) {
+  const bg = site.images.about
+  return (
+    <a
+      href={to(areaPath(area))}
+      className="group on-dark relative isolate flex h-full min-h-[26rem] flex-col justify-between overflow-hidden rounded-4xl bg-navy-950 p-7 text-white sm:p-9"
+    >
+      {bg && (
+        <img
+          src={bg.src}
+          srcSet={bg.srcSet}
+          sizes="(min-width: 1024px) 50vw, 100vw"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 -z-20 h-full w-full object-cover opacity-40 transition-transform duration-700 ease-out group-hover:scale-105"
+        />
+      )}
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-t from-navy-950 via-navy-950/85 to-navy-950/30" />
 
-  const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>, i: number) => {
-    const keys: Record<string, number> = { ArrowDown: i + 1, ArrowUp: i - 1, Home: 0, End: total - 1 }
-    if (!(e.key in keys)) return
-    e.preventDefault()
-    const next = (keys[e.key] + total) % total
-    setActive(next)
-    tabRefs.current[next]?.focus()
-  }
+      <div className="flex items-start justify-between">
+        <span className="grid size-13 place-items-center rounded-2xl bg-gold-500 text-navy-950">
+          <Icon name={area.icon} size={26} strokeWidth={1.4} />
+        </span>
+        <span className="glass rounded-full px-3 py-1 text-xs font-medium text-white/80">Mais procurada</span>
+      </div>
+
+      <div>
+        <h3 className="font-display text-3xl tracking-[-0.03em] sm:text-4xl">{area.title}</h3>
+        <p className="mt-3 max-w-md leading-relaxed text-white/75">{area.description}</p>
+        <ul className="mt-6 flex flex-wrap gap-2">
+          {area.services.map((s) => (
+            <li key={s.title} className="glass rounded-full px-3 py-1.5 text-xs text-white/85">
+              {s.title}
+            </li>
+          ))}
+        </ul>
+        <span className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-gold-500">
+          Conhecer a área
+          <Icon name="arrowRight" size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
+        </span>
+      </div>
+    </a>
+  )
+}
+
+function AreaCard({ area, index }: { area: PracticeArea; index: number }) {
+  return (
+    <a href={to(areaPath(area))} className="group card card-hover flex h-full flex-col p-7">
+      <div className="flex items-start justify-between">
+        <span className="grid size-12 place-items-center rounded-2xl bg-mist text-navy-800 transition-colors duration-300 group-hover:bg-navy-950 group-hover:text-gold-500">
+          <Icon name={area.icon} size={23} strokeWidth={1.5} />
+        </span>
+        <span className="font-accent text-2xl text-navy-950/25">{pad(index + 1)}</span>
+      </div>
+      <h3 className="mt-8 font-display text-[1.4rem] leading-tight tracking-[-0.03em] text-navy-950">{area.title}</h3>
+      <p className="mt-2.5 flex-1 text-[0.95rem] leading-relaxed text-muted">{area.description}</p>
+      <span className="mt-6 inline-flex items-center gap-2 text-sm font-medium text-navy-950">
+        Saiba mais
+        <span className="grid size-7 place-items-center rounded-full bg-mist transition-[background-color,transform] duration-300 group-hover:translate-x-1 group-hover:bg-gold-500">
+          <Icon name="arrowRight" size={14} />
+        </span>
+      </span>
+    </a>
+  )
+}
+
+export function PracticeAreas() {
+  const [featured, ...rest] = practiceAreas
 
   return (
-    <section id="areas" aria-labelledby="areas-title" className="section bg-white">
+    <section id="areas" aria-labelledby="areas-title" className="section bg-mist">
       <Container>
         <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeading id="areas-title" {...headings.areas} />
           <Reveal className="shrink-0">
-            <Button href="#contato" variant="outline" iconRight="arrowRight">
+            <Button href={to('/agendar/')} variant="outline" iconRight="arrowRight">
               Agendar atendimento
             </Button>
           </Reveal>
         </div>
 
-        <Reveal
-          delay={80}
-          className="mt-14 grid border-t border-navy-950/15 lg:mt-20 lg:grid-cols-12 lg:gap-x-16"
-          as="div"
-        >
-          <div
-            role="tablist"
-            aria-orientation="vertical"
-            aria-label="Áreas de atuação"
-            className="contents"
-          >
-            {practiceAreas.map((a, i) => {
-              const selected = i === active
-              return (
-                <button
-                  key={a.title}
-                  ref={(el) => {
-                    tabRefs.current[i] = el
-                  }}
-                  id={`${uid}-tab-${i}`}
-                  role="tab"
-                  type="button"
-                  aria-selected={selected}
-                  aria-controls={`${uid}-panel`}
-                  tabIndex={selected ? 0 : -1}
-                  onClick={() => setActive(i)}
-                  onMouseEnter={() => window.matchMedia('(min-width: 1024px)').matches && setActive(i)}
-                  onKeyDown={(e) => onKeyDown(e, i)}
-                  style={{ order: i * 2 }}
-                  className="group flex w-full items-center gap-5 border-b border-navy-950/15 py-6 text-left sm:gap-8 sm:py-7 lg:col-span-7 lg:col-start-1"
-                >
-                  <span
-                    className={`w-7 shrink-0 font-serif text-base transition-colors duration-300 ${
-                      selected ? 'text-gold-700' : 'text-navy-950/35'
-                    }`}
-                  >
-                    {pad(i + 1)}
-                  </span>
-                  <span
-                    className={`flex-1 font-serif text-[1.6rem] leading-tight transition-[color,transform] duration-500 ease-out sm:text-[2.6rem] ${
-                      selected
-                        ? 'text-navy-950 lg:translate-x-2'
-                        : 'text-navy-950/80 group-hover:text-navy-950 lg:text-navy-950/35'
-                    }`}
-                  >
-                    {a.title}
-                  </span>
-                  <span
-                    aria-hidden="true"
-                    className={`grid size-11 shrink-0 place-items-center rounded-full border transition-[background-color,border-color,color,transform] duration-500 ${
-                      selected
-                        ? 'rotate-0 border-navy-950 bg-navy-950 text-gold-500 max-lg:rotate-90'
-                        : '-rotate-45 border-navy-950/15 text-navy-950/60 group-hover:border-navy-950/40'
-                    }`}
-                  >
-                    <Icon name="arrowRight" size={18} />
-                  </span>
-                </button>
-              )
-            })}
-          </div>
+        {/* Grade bento: destaque 2x2 + quatro cartões */}
+        <ul className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:grid-rows-2">
+          {featured && (
+            <Reveal as="li" className="sm:col-span-2 lg:row-span-2">
+              <FeaturedCard area={featured} />
+            </Reveal>
+          )}
+          {rest.map((area, i) => (
+            <Reveal as="li" key={area.slug} delay={(i % 2) * 90 + 60}>
+              <AreaCard area={area} index={i + 1} />
+            </Reveal>
+          ))}
+        </ul>
 
-          {/* Painel da área selecionada */}
-          <div
-            id={`${uid}-panel`}
-            role="tabpanel"
-            aria-labelledby={`${uid}-tab-${active}`}
-            style={{ order: active * 2 + 1, '--rows': total } as CSSProperties}
-            className="pt-2 pb-6 lg:col-span-5 lg:col-start-8 lg:[grid-row:1/span_var(--rows)] lg:pt-10 lg:pb-0"
-          >
-            <div className="on-dark relative overflow-hidden bg-navy-950 p-7 text-white sm:p-10 lg:sticky lg:top-28">
-              <div aria-hidden="true" className="pattern-lines absolute inset-0 opacity-70" />
-              <div key={active} className="panel-in relative">
-                <div className="flex items-center justify-between">
-                  <span className="grid size-14 place-items-center border border-gold-500/40 text-gold-500">
-                    <Icon name={area.icon} size={28} strokeWidth={1.2} />
-                  </span>
-                  <span className="font-serif text-sm tracking-[0.2em] text-white/50">
-                    {pad(active + 1)} / {pad(total)}
-                  </span>
-                </div>
-
-                <h3 className="mt-8 font-serif text-3xl leading-tight sm:text-4xl">{area.title}</h3>
-                <p className="mt-4 leading-relaxed text-white/75">{area.description}</p>
-
-                <p className="mt-8 text-xs font-semibold tracking-[0.2em] text-gold-500 uppercase">Exemplos de atuação</p>
-                <ul className="mt-4 divide-y divide-white/10 border-y border-white/10">
-                  {area.services.map((service) => (
-                    <li key={service.title} className="flex items-center gap-3 py-3 text-[0.95rem] text-white/85">
-                      <span aria-hidden="true" className="h-px w-4 shrink-0 bg-gold-500" />
-                      {service.title}
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
-                  <Button
-                    {...whatsappProps(`Olá! Gostaria de obter informações sobre atendimento em ${area.title}.`)}
-                    variant="gold"
-                    icon="whatsapp"
-                  >
-                    Falar sobre o caso
-                  </Button>
-                  <a
-                    href={to(areaPath(area))}
-                    className="inline-flex items-center gap-2 text-sm font-semibold text-white underline decoration-gold-500 decoration-1 underline-offset-[6px] hover:decoration-2"
-                  >
-                    Ver página da área
-                    <Icon name="arrowRight" size={16} />
-                  </a>
-                </div>
-              </div>
+        <Reveal className="mt-4">
+          <div className="card flex flex-col gap-4 p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <div className="flex items-center gap-4">
+              <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-gold-500/15 text-gold-700">
+                <Icon name="message" size={21} />
+              </span>
+              <p className="text-navy-950">
+                <span className="font-medium">Não encontrou a sua situação?</span>{' '}
+                <span className="text-muted">Conte brevemente o seu caso e indicaremos se e como podemos ajudar.</span>
+              </p>
             </div>
+            <Button {...whatsappProps()} variant="primary" icon="whatsapp" className="shrink-0">
+              Falar com um advogado
+            </Button>
           </div>
-        </Reveal>
-
-        <Reveal className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between lg:max-w-[58%]">
-          <p className="text-muted">
-            Não encontrou a sua situação? Conte brevemente o seu caso e indicaremos se e como podemos ajudar.
-          </p>
-          <a
-            {...whatsappProps()}
-            className="inline-flex shrink-0 items-center gap-2 font-semibold text-navy-950 underline decoration-gold-500 decoration-1 underline-offset-[6px] hover:decoration-2"
-          >
-            Falar com um advogado
-            <Icon name="arrowRight" size={16} />
-          </a>
         </Reveal>
       </Container>
     </section>

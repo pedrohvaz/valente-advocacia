@@ -14,19 +14,19 @@ export function ArticleCover({ article, large = false }: { article: Article; lar
   return (
     <div
       aria-hidden="true"
-      className={`on-dark relative flex flex-col justify-between overflow-hidden bg-navy-950 text-white ${
+      className={`on-dark hero-bg relative flex flex-col justify-between overflow-hidden rounded-3xl bg-navy-950 text-white ${
         large ? 'aspect-[16/10] p-8 sm:p-10' : 'aspect-[16/10] p-6'
       }`}
     >
       <div className="pattern-lines absolute inset-0 opacity-80" />
-      <div className="absolute -right-6 -bottom-10 font-serif text-[11rem] leading-none text-white/[0.04]">§</div>
+      <div className="absolute -right-6 -bottom-10 font-accent text-[11rem] leading-none text-white/[0.05]">§</div>
       <div className="relative flex items-center justify-between">
-        <span className="grid size-11 place-items-center border border-gold-500/40 text-gold-500">
+        <span className="grid size-11 place-items-center rounded-xl bg-gold-500 text-navy-950">
           {area && <Icon name={area.icon} size={22} strokeWidth={1.3} />}
         </span>
         <span className="text-[0.68rem] font-semibold tracking-[0.22em] text-gold-500 uppercase">{area?.title}</span>
       </div>
-      <p className={`relative font-serif leading-tight ${large ? 'text-3xl sm:text-4xl' : 'text-2xl'}`}>
+      <p className={`relative font-display leading-tight tracking-[-0.03em] ${large ? 'text-3xl sm:text-4xl' : 'text-[1.4rem]'}`}>
         {article.title}
       </p>
     </div>
@@ -37,7 +37,7 @@ export function ArticleCard({ article }: { article: Article }) {
   const area = findArea(article.area)
   return (
     <article className="group relative flex h-full flex-col">
-      <div className="overflow-hidden">
+      <div className="overflow-hidden rounded-3xl">
         <div className="transition-transform duration-700 ease-out group-hover:scale-[1.03]">
           <ArticleCover article={article} />
         </div>
@@ -48,7 +48,7 @@ export function ArticleCard({ article }: { article: Article }) {
           <span aria-hidden="true">·</span>
           <time dateTime={article.date}>{formatDate(article.date)}</time>
         </p>
-        <h3 className="mt-3 font-serif text-2xl leading-snug text-navy-950">
+        <h3 className="mt-3 font-display text-xl leading-snug tracking-[-0.025em] text-navy-950">
           <a href={to(articlePath(article))} className="after:absolute after:inset-0 hover:text-navy-800">
             {article.title}
           </a>

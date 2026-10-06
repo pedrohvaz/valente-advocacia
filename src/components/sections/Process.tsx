@@ -2,8 +2,11 @@ import { headings, processSteps } from '../../data/content'
 import { whatsappProps } from '../../lib/whatsapp'
 import { Button } from '../ui/Button'
 import { Container } from '../ui/Container'
+import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
 import { SectionHeading } from '../ui/SectionHeading'
+
+const pad = (n: number) => String(n).padStart(2, '0')
 
 export function Process() {
   return (
@@ -11,32 +14,36 @@ export function Process() {
       <Container>
         <SectionHeading id="processo-title" {...headings.process} />
 
-        <div className="relative mt-14 lg:mt-20">
-          {/* Linha da timeline: vertical no mobile, horizontal no desktop */}
-          <span aria-hidden="true" className="absolute top-2 bottom-2 left-7 w-px bg-navy-950/15 lg:hidden" />
-          <span aria-hidden="true" className="absolute top-7 right-0 left-0 hidden h-px bg-navy-950/15 lg:block" />
-
-          <ol className="relative grid gap-10 lg:grid-cols-4 lg:gap-8">
-
+        <ol className="mt-14 grid gap-4 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
           {processSteps.map((step, i) => (
-            <Reveal as="li" key={step.title} delay={i * 110} className="relative flex gap-6 lg:block">
-              <span className="relative z-10 grid size-14 shrink-0 place-items-center rounded-full border border-gold-500 bg-mist font-serif text-xl text-navy-950">
-                {String(i + 1).padStart(2, '0')}
-              </span>
-              <div className="pt-2 lg:pt-8 lg:pr-4">
-                <h3 className="font-serif text-2xl leading-tight text-navy-950">{step.title}</h3>
-                <p className="mt-3 leading-relaxed text-muted">{step.description}</p>
+            <Reveal as="li" key={step.title} delay={i * 100} className="card relative flex flex-col p-7">
+              <div className="flex items-center gap-3">
+                <span className="grid size-11 place-items-center rounded-full bg-navy-950 font-display text-sm font-semibold text-gold-500">
+                  {pad(i + 1)}
+                </span>
+                {/* Conector entre etapas (desktop) */}
+                {i < processSteps.length - 1 && (
+                  <span aria-hidden="true" className="hidden h-px flex-1 bg-gradient-to-r from-navy-950/20 to-transparent lg:block" />
+                )}
               </div>
+              <h3 className="mt-8 font-display text-[1.3rem] leading-tight tracking-[-0.03em] text-navy-950">{step.title}</h3>
+              <p className="mt-2.5 leading-relaxed text-muted">{step.description}</p>
             </Reveal>
           ))}
-          </ol>
-        </div>
+        </ol>
 
-        <Reveal className="mt-14 flex flex-col items-start gap-4 border-t border-navy-950/10 pt-10 sm:flex-row sm:items-center sm:justify-between lg:mt-20">
-          <p className="font-serif text-2xl text-navy-950">O primeiro passo é uma conversa.</p>
-          <Button {...whatsappProps()} variant="primary" icon="whatsapp">
-            Falar com um advogado
-          </Button>
+        <Reveal className="mt-4">
+          <div className="on-dark flex flex-col items-start gap-5 rounded-3xl bg-navy-950 p-6 text-white sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <p className="flex items-center gap-3 font-display text-xl tracking-[-0.02em]">
+              <Icon name="message" size={22} className="shrink-0 text-gold-500" />
+              <span>
+                O primeiro passo é uma <em>conversa</em>.
+              </span>
+            </p>
+            <Button {...whatsappProps()} variant="gold" icon="whatsapp">
+              Falar com um advogado
+            </Button>
+          </div>
         </Reveal>
       </Container>
     </section>

@@ -26,7 +26,7 @@ function validate(f: Fields): Errors {
 }
 
 const inputBase =
-  'mt-2 block w-full rounded-sm border bg-white px-4 py-3.5 text-base text-navy-950 placeholder:text-muted/70 transition-[border-color,box-shadow] duration-200 focus:border-navy-950 focus:shadow-[0_0_0_3px_rgba(28,49,94,0.15)] focus:outline-none'
+  'mt-2 block w-full rounded-xl border bg-white px-4 py-3.5 text-base text-navy-950 placeholder:text-muted/70 transition-[border-color,box-shadow] duration-200 focus:border-navy-950 focus:shadow-[0_0_0_3px_rgba(28,49,94,0.15)] focus:outline-none'
 
 export function ContactForm() {
   const [fields, setFields] = useState<Fields>(initial)
@@ -108,8 +108,8 @@ export function ContactForm() {
   const label = 'block text-sm font-semibold text-navy-950'
 
   return (
-    <form onSubmit={onSubmit} noValidate className="bg-white p-6 shadow-[0_30px_70px_-40px_rgba(11,19,43,0.45)] sm:p-10">
-      <h3 className="font-serif text-3xl text-navy-950">Envie uma mensagem</h3>
+    <form onSubmit={onSubmit} noValidate className="rounded-4xl border border-navy-950/[0.07] bg-white p-6 shadow-[0_30px_70px_-40px_rgba(11,19,43,0.35)] sm:p-10">
+      <h3 className="font-display text-2xl tracking-[-0.03em] text-navy-950 sm:text-3xl">Envie uma mensagem</h3>
       <p className="mt-2 text-muted">Responderemos o mais breve possível, em horário de atendimento.</p>
 
       <div className="mt-8 grid gap-5 sm:grid-cols-2">
@@ -167,7 +167,7 @@ export function ContactForm() {
 
         <div className="sm:col-span-2">
           <div className="flex items-start gap-3">
-            <input id={fid('consent')} name="consent" type="checkbox" checked={fields.consent} onChange={update('consent')} className="mt-0.5 size-5 shrink-0 accent-navy-950" {...errorProps('consent')} />
+            <input id={fid('consent')} name="consent" type="checkbox" checked={fields.consent} onChange={update('consent')} className="mt-0.5 size-5 shrink-0 rounded accent-navy-950" {...errorProps('consent')} />
             <label htmlFor={fid('consent')} className="text-sm leading-relaxed text-muted">
               Autorizo o uso dos meus dados para retorno do contato, conforme a{' '}
               <a href={to('/privacidade/')} className="font-medium text-navy-950 underline underline-offset-2">
@@ -191,7 +191,7 @@ export function ContactForm() {
 
       <div role="status" aria-live="polite" className="empty:hidden">
         {status === 'sent' && (
-          <p className="mt-6 flex items-start gap-3 border-l-2 border-gold-500 bg-mist p-4 text-sm text-ink">
+          <p className="mt-6 flex items-start gap-3 rounded-2xl bg-mist p-4 text-sm text-ink">
             <Icon name="check" size={18} className="mt-px shrink-0 text-gold-700" />
             {site.form.endpoint
               ? 'Mensagem enviada. Agradecemos o contato e retornaremos em breve.'
@@ -199,7 +199,7 @@ export function ContactForm() {
           </p>
         )}
         {status === 'error' && (
-          <p className="mt-6 border-l-2 border-red-700 bg-red-50 p-4 text-sm text-red-800">
+          <p className="mt-6 rounded-2xl bg-red-50 p-4 text-sm text-red-800">
             Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.
           </p>
         )}

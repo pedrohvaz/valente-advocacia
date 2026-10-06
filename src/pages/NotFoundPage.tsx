@@ -28,7 +28,7 @@ export function NotFoundPage() {
           <ul className="mt-6 flex flex-wrap gap-x-8 gap-y-3">
             {practiceAreas.map((a) => (
               <li key={a.slug}>
-                <a href={to(areaPath(a))} className="font-serif text-2xl text-navy-950 hover:text-gold-700">
+                <a href={to(areaPath(a))} className="font-display text-2xl text-navy-950 hover:text-gold-700">
                   {a.title}
                 </a>
               </li>

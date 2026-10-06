@@ -30,7 +30,7 @@ export function SectionHeading({
       >
         {eyebrow}
       </p>
-      <h2 id={id} className={`mt-4 font-serif text-display-md text-balance ${dark ? 'text-white' : 'text-navy-950'}`}>
+      <h2 id={id} className={`mt-4 font-display text-display-md text-balance ${dark ? 'text-white' : 'text-navy-950'}`}>
         {typeof title === 'string' ? rich(title) : title}
       </h2>
       {description && (

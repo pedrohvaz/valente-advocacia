@@ -70,7 +70,7 @@ export function Privacy() {
           <div className="space-y-12">
             {sections.map((s) => (
               <section key={s.title}>
-                <h2 className="font-serif text-[1.75rem] text-navy-950">{s.title}</h2>
+                <h2 className="font-display text-[1.75rem] text-navy-950">{s.title}</h2>
                 <div className="mt-4 space-y-4 text-lg leading-relaxed text-ink">
                   {s.body.map((p) => (
                     <p key={p}>{p}</p>

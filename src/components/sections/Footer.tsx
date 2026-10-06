@@ -29,11 +29,11 @@ export function Footer({ isHome = false }: { isHome?: boolean }) {
       <Container>
         <div className="grid gap-12 border-b border-white/10 pb-14 sm:grid-cols-2 lg:grid-cols-12">
           <div className="sm:col-span-2 lg:col-span-4">
-            <a href={isHome ? '#inicio' : to('/')} className="inline-flex max-w-full rounded-sm">
+            <a href={isHome ? '#inicio' : to('/')} className="inline-flex max-w-full rounded-xl">
               <Logo />
               <span className="sr-only"> — voltar ao início</span>
             </a>
-            <p className="mt-6 max-w-sm font-serif text-xl leading-snug text-white">{site.tagline}</p>
+            <p className="mt-6 max-w-sm font-display text-xl leading-snug text-white">{site.tagline}</p>
             <div className="mt-7 flex gap-3">
               {socials.map((s) =>
                 s.href ? (

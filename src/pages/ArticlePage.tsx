@@ -13,7 +13,7 @@ function renderBlock(block: Block, i: number) {
   switch (block.type) {
     case 'h2':
       return (
-        <h2 key={i} className="mt-14 font-serif text-[1.9rem] leading-tight text-navy-950 sm:text-[2.2rem]">
+        <h2 key={i} className="mt-14 font-display text-[1.6rem] leading-tight tracking-[-0.035em] text-navy-950 sm:text-[1.9rem]">
           {block.text}
         </h2>
       )
@@ -36,8 +36,8 @@ function renderBlock(block: Block, i: number) {
       )
     case 'quote':
       return (
-        <blockquote key={i} className="my-12 border-l-2 border-gold-500 py-1 pl-6 sm:pl-8">
-          <p className="font-serif text-2xl leading-snug text-navy-950 italic sm:text-[1.75rem]">{block.text}</p>
+        <blockquote key={i} className="my-12 rounded-3xl bg-mist px-7 py-8 sm:px-10">
+          <p className="font-accent text-[1.75rem] leading-snug text-navy-950 sm:text-[2.1rem]">{block.text}</p>
         </blockquote>
       )
   }
@@ -117,7 +117,7 @@ export function ArticlePage({ article }: { article: Article }) {
               )}
             </ol>
           </nav>
-          <h1 className="hero-in mt-10 font-serif text-display-lg text-balance [animation-delay:80ms]">{article.title}</h1>
+          <h1 className="hero-in mt-10 font-display text-display-lg text-balance [animation-delay:80ms]">{article.title}</h1>
           <p className="hero-in mt-6 text-lg leading-relaxed text-white/75 [animation-delay:140ms]">{article.excerpt}</p>
           <div className="hero-in mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-white/10 pt-6 text-sm text-white/70 [animation-delay:200ms]">
             <span className="flex items-center gap-3">
@@ -138,7 +138,7 @@ export function ArticlePage({ article }: { article: Article }) {
         <Container className="max-w-3xl">
           <div className="first-letter-drop">{article.body.map(renderBlock)}</div>
 
-          <aside className="mt-14 flex gap-4 border border-line bg-mist p-5 text-sm leading-relaxed text-muted">
+          <aside className="mt-14 flex gap-4 rounded-2xl bg-mist p-5 text-sm leading-relaxed text-muted">
             <Icon name="shield" size={20} className="mt-0.5 shrink-0 text-gold-700" />
             <p>
               Este conteúdo tem caráter exclusivamente informativo e não substitui a consulta a um advogado. Cada
@@ -170,7 +170,7 @@ export function ArticlePage({ article }: { article: Article }) {
             )}
             <div>
               <p className="text-xs font-semibold tracking-[0.18em] text-gold-700 uppercase">Sobre o autor</p>
-              <p className="mt-1 font-serif text-2xl text-navy-950">{site.lawyer.name}</p>
+              <p className="mt-1 font-display text-2xl text-navy-950">{site.lawyer.name}</p>
               <p className="mt-1 text-sm text-muted">
                 Advogado · {oabLabel} · {site.officeName}
               </p>
@@ -178,10 +178,10 @@ export function ArticlePage({ article }: { article: Article }) {
           </div>
 
           {/* CTA */}
-          <div className="on-dark relative mt-12 overflow-hidden bg-navy-950 p-8 text-white sm:p-10">
+          <div className="on-dark relative mt-12 overflow-hidden rounded-4xl bg-navy-950 p-8 text-white sm:p-10">
             <div aria-hidden="true" className="pattern-lines absolute inset-0 opacity-70" />
             <div className="relative">
-              <p className="font-serif text-3xl leading-tight">
+              <p className="font-display text-3xl leading-tight">
                 Tem uma dúvida sobre <em>{area?.title ?? 'este tema'}</em>?
               </p>
               <p className="mt-3 text-white/75">Conte brevemente a sua situação e receba uma orientação inicial.</p>
@@ -206,7 +206,7 @@ export function ArticlePage({ article }: { article: Article }) {
         <section aria-labelledby="leia-tambem" className="section bg-mist">
           <Container>
             <p className="eyebrow text-gold-700">Continue lendo</p>
-            <h2 id="leia-tambem" className="mt-4 font-serif text-display-md text-navy-950">
+            <h2 id="leia-tambem" className="mt-4 font-display text-display-md text-navy-950">
               Leia <em>também</em>.
             </h2>
             <ul className="mt-12 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">

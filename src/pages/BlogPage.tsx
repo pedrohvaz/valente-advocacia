@@ -58,7 +58,7 @@ export function BlogPage() {
           {showFeatured && (
             <Reveal className="mt-12">
               <article className="group relative grid items-center gap-8 lg:grid-cols-12 lg:gap-14">
-                <div className="overflow-hidden lg:col-span-7">
+                <div className="overflow-hidden rounded-3xl lg:col-span-7">
                   <div className="transition-transform duration-700 ease-out group-hover:scale-[1.02]">
                     <ArticleCover article={featured} large />
                   </div>
@@ -67,7 +67,7 @@ export function BlogPage() {
                   <p className="text-xs font-semibold tracking-[0.14em] text-muted uppercase">
                     <span className="text-gold-700">Mais recente</span> · <time dateTime={featured.date}>{formatDate(featured.date)}</time>
                   </p>
-                  <h2 className="mt-4 font-serif text-display-md text-balance text-navy-950">
+                  <h2 className="mt-4 font-display text-display-md text-balance text-navy-950">
                     <a href={to(articlePath(featured))} className="after:absolute after:inset-0">
                       {featured.title}
                     </a>

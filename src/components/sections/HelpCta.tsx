@@ -4,6 +4,7 @@ import { rich } from '../../lib/rich'
 import { whatsappProps } from '../../lib/whatsapp'
 import { Button } from '../ui/Button'
 import { Container } from '../ui/Container'
+import { Icon } from '../ui/Icon'
 import { Reveal } from '../ui/Reveal'
 
 /** Seção "Como podemos ajudar" — faixa de conversão para o WhatsApp. */
@@ -14,7 +15,7 @@ export function HelpCta() {
       <Container className="relative grid items-center gap-14 py-20 sm:py-28 lg:grid-cols-12 lg:gap-20">
         <Reveal className={`${image ? 'lg:col-span-6 lg:order-2' : 'lg:col-span-8'}`}>
           <p className="eyebrow text-gold-700">Como podemos ajudar</p>
-          <h2 id="ajuda-title" className="mt-4 font-serif text-display-md text-balance text-navy-950">
+          <h2 id="ajuda-title" className="mt-4 font-display text-display-md text-balance text-navy-950">
             {rich(helpCta.title)}
           </h2>
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-pretty text-muted">{helpCta.text}</p>
@@ -31,8 +32,7 @@ export function HelpCta() {
 
         {image && (
           <Reveal delay={120} className="relative lg:order-1 lg:col-span-6">
-            <div aria-hidden="true" className="absolute -top-4 -left-4 hidden h-full w-full border border-gold-500/50 sm:block" />
-            <div className="relative aspect-[4/3] overflow-hidden rounded-sm">
+            <div className="relative aspect-[4/3] overflow-hidden rounded-4xl">
               <img
                 src={image.src}
                 srcSet={image.srcSet}
@@ -45,6 +45,15 @@ export function HelpCta() {
                 className="h-full w-full object-cover"
               />
               <div aria-hidden="true" className="absolute inset-0 bg-navy-950/15 mix-blend-multiply" />
+            </div>
+            <div className="absolute -bottom-5 left-5 flex items-center gap-3 rounded-2xl bg-white p-3 pr-5 shadow-[0_20px_40px_-20px_rgba(11,19,43,0.45)] sm:left-8">
+              <span className="grid size-10 place-items-center rounded-xl bg-[#15803D] text-white">
+                <Icon name="whatsapp" size={20} />
+              </span>
+              <span className="text-sm">
+                <span className="block font-semibold text-navy-950">Primeiro contato pelo WhatsApp</span>
+                <span className="block text-muted">Atendimento presencial e online</span>
+              </span>
             </div>
           </Reveal>
         )}

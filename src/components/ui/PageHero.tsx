@@ -38,7 +38,7 @@ export function PageHero({ crumbs, eyebrow, title, description, children }: Page
           </ol>
         </nav>
         {eyebrow && <p className="eyebrow hero-in mt-10 text-gold-500 [animation-delay:60ms]">{eyebrow}</p>}
-        <h1 className={`hero-in max-w-4xl font-serif text-display-lg text-balance [animation-delay:100ms] ${eyebrow ? 'mt-5' : 'mt-10'}`}>
+        <h1 className={`hero-in max-w-4xl font-display text-display-lg text-balance [animation-delay:100ms] ${eyebrow ? 'mt-5' : 'mt-10'}`}>
           {rich(title)}
         </h1>
         {description && (

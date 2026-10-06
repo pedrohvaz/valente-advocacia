@@ -1,13 +1,11 @@
 /* Fontes auto-hospedadas, apenas o subconjunto latino (suficiente para português). */
-@import '@fontsource/cormorant-garamond/latin-500.css';
-@import '@fontsource/cormorant-garamond/latin-600.css';
-@import '@fontsource/cormorant-garamond/latin-500-italic.css';
+@import '@fontsource/instrument-serif/latin-400-italic.css';
 @font-face {
-  font-family: 'Manrope Variable';
+  font-family: 'Geist Variable';
   font-style: normal;
   font-display: swap;
-  font-weight: 200 800;
-  src: url('../node_modules/@fontsource-variable/manrope/files/manrope-latin-wght-normal.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  src: url('../node_modules/@fontsource-variable/geist/files/geist-latin-wght-normal.woff2') format('woff2-variations');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
     U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -28,20 +26,26 @@
   --color-ink: #30343b;
   --color-muted: #5a606b;
 
-  --font-sans: 'Manrope Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --font-sans: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Títulos: a mesma Geist, com peso e espaçamento próprios */
+  --font-display: 'Geist Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  /* Acento: itálico serifado para a palavra de destaque e numerais decorativos */
+  --font-accent: 'Instrument Serif', Georgia, 'Times New Roman', serif;
+
+  --radius-4xl: 2rem;
+  --radius-5xl: 2.5rem;
 
   --spacing-13: 3.25rem;
 
-  --text-display-xl: clamp(2.6rem, 1.6rem + 4.2vw, 4.75rem);
-  --text-display-xl--line-height: 1.04;
-  --text-display-xl--letter-spacing: -0.015em;
-  --text-display-lg: clamp(2.3rem, 1.6rem + 3vw, 3.9rem);
-  --text-display-lg--line-height: 1.08;
-  --text-display-lg--letter-spacing: -0.01em;
-  --text-display-md: clamp(2.05rem, 1.5rem + 2.2vw, 3.25rem);
-  --text-display-md--line-height: 1.1;
-  --text-display-md--letter-spacing: -0.01em;
+  --text-display-xl: clamp(2.5rem, 1.4rem + 4.4vw, 4.9rem);
+  --text-display-xl--line-height: 1;
+  --text-display-xl--letter-spacing: -0.045em;
+  --text-display-lg: clamp(2.2rem, 1.4rem + 3.2vw, 3.9rem);
+  --text-display-lg--line-height: 1.04;
+  --text-display-lg--letter-spacing: -0.04em;
+  --text-display-md: clamp(1.95rem, 1.35rem + 2.3vw, 3.1rem);
+  --text-display-md--line-height: 1.08;
+  --text-display-md--letter-spacing: -0.035em;
 }
 
 @layer base {
@@ -62,8 +66,12 @@
   }
   h1,
   h2,
-  h3 {
-    font-weight: 500;
+  h3,
+  .font-display {
+    font-weight: 560;
+  }
+  .font-display {
+    letter-spacing: -0.025em;
   }
   /* Itálico de destaque nos títulos: dourado escuro no claro, dourado no escuro */
   :root {
@@ -75,13 +83,19 @@
   h1 em,
   h2 em,
   h3 em,
-  .font-serif em {
+  .font-display em {
+    font-family: var(--font-accent);
     font-style: italic;
+    font-weight: 400;
+    font-size: 1.06em;
+    letter-spacing: -0.01em;
+    padding-right: 0.04em;
     color: var(--em);
   }
-  /* Cormorant usa algarismos antigos por padrão; força algarismos alinhados */
-  .font-serif {
-    font-variant-numeric: lining-nums;
+  .font-accent {
+    font-weight: 400;
+    font-style: italic;
+    letter-spacing: 0;
   }
   ::selection {
     background: var(--color-gold-500);
@@ -101,42 +115,57 @@
     @apply py-20 sm:py-28 lg:py-32;
   }
 
-  /* Rótulo acima dos títulos, com filete dourado */
+  /* Rótulo acima dos títulos: selo em pílula com ponto */
   .eyebrow {
-    @apply flex items-center gap-3 text-xs font-semibold tracking-[0.22em] uppercase;
+    @apply inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[0.7rem] font-semibold tracking-[0.16em] uppercase;
+    border: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+    background: color-mix(in srgb, currentColor 7%, transparent);
   }
   .eyebrow::before {
     content: '';
-    @apply block h-px w-8 shrink-0 bg-current;
+    @apply block size-1.5 shrink-0 rounded-full bg-current;
+  }
+
+  /* Superfície de vidro fosco (sobre fundos escuros) */
+  .glass {
+    background: rgb(255 255 255 / 0.06);
+    border: 1px solid rgb(255 255 255 / 0.1);
+    backdrop-filter: blur(14px);
+  }
+
+  /* Cartão claro com borda suave e elevação no hover */
+  .card {
+    @apply rounded-3xl border border-navy-950/[0.07] bg-white shadow-[0_1px_2px_rgb(11_19_43/0.04)] transition-[transform,box-shadow,border-color] duration-500 ease-out;
+  }
+  .card-hover:hover {
+    @apply -translate-y-1 border-navy-950/[0.12] shadow-[0_24px_50px_-28px_rgb(11_19_43/0.35)];
   }
 
   .link-underline {
     @apply underline decoration-navy-950/20 decoration-1 underline-offset-4 transition-[text-decoration-color] hover:decoration-gold-500;
   }
 
-  .nav-link::after {
-    content: '';
-    @apply absolute right-3 bottom-1 left-3 h-px origin-left scale-x-0 bg-gold-500 transition-transform duration-300;
-  }
-  .nav-link:hover::after,
-  .nav-link[aria-current='true']::after {
-    @apply scale-x-100;
+  .nav-link[aria-current] {
+    @apply bg-white/10 text-white;
   }
 
-  /* Fundo escuro do hero: gradiente sutil + grade arquitetônica muito leve */
+  /* Fundo escuro: brilhos difusos (azul e dourado) + grade fina que se dissolve */
   .hero-bg {
     background-image:
-      radial-gradient(ellipse 70% 60% at 85% 20%, rgb(28 49 94 / 0.75), transparent 70%),
-      radial-gradient(ellipse 50% 50% at 0% 100%, rgb(28 49 94 / 0.45), transparent 70%);
+      radial-gradient(ellipse 55% 50% at 80% 10%, rgb(201 162 39 / 0.16), transparent 70%),
+      radial-gradient(ellipse 60% 60% at 10% 0%, rgb(48 82 160 / 0.45), transparent 70%),
+      radial-gradient(ellipse 50% 50% at 50% 110%, rgb(28 49 94 / 0.7), transparent 70%);
   }
   .hero-bg::before {
     content: '';
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: linear-gradient(to right, rgb(255 255 255 / 0.035) 1px, transparent 1px);
-    background-size: calc(100% / 6) 100%;
-    mask-image: linear-gradient(to bottom, black, transparent 85%);
+    background-image:
+      linear-gradient(to right, rgb(255 255 255 / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(255 255 255 / 0.04) 1px, transparent 1px);
+    background-size: 64px 64px;
+    mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, black, transparent 80%);
   }
 
   .pattern-lines {
@@ -203,9 +232,10 @@
   .first-letter-drop > p:first-child::first-letter {
     float: left;
     margin: 0.06em 0.12em 0 0;
-    font-family: var(--font-serif);
-    font-size: 4.4em;
-    line-height: 0.82;
+    font-family: var(--font-accent);
+    font-style: italic;
+    font-size: 4.6em;
+    line-height: 0.8;
     color: var(--color-navy-950);
   }
 

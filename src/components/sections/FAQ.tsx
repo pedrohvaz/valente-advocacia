@@ -11,7 +11,7 @@ export function FaqRow({ question, answer, defaultOpen }: { question: string; an
   const id = useId()
 
   return (
-    <li className="border-b border-navy-950/10">
+    <li className="rounded-2xl bg-mist px-5 transition-colors hover:bg-[#eef0f4] sm:px-7">
       <h3>
         <button
           type="button"
@@ -19,13 +19,13 @@ export function FaqRow({ question, answer, defaultOpen }: { question: string; an
           aria-expanded={open}
           aria-controls={`${id}-a`}
           onClick={() => setOpen((v) => !v)}
-          className="flex w-full items-center justify-between gap-6 py-6 text-left font-serif text-xl leading-snug text-navy-950 transition-colors hover:text-navy-800 sm:text-[1.4rem]"
+          className="flex w-full items-center justify-between gap-6 py-5 text-left font-display text-[1.1rem] leading-snug tracking-[-0.02em] text-navy-950 sm:py-6 sm:text-[1.25rem]"
         >
           {question}
           <span
             aria-hidden="true"
             className={`grid size-9 shrink-0 place-items-center rounded-full border transition-[transform,background-color,border-color,color] duration-300 ${
-              open ? 'rotate-45 border-navy-950 bg-navy-950 text-white' : 'border-navy-950/15 text-navy-950'
+              open ? 'rotate-45 border-navy-950 bg-navy-950 text-white' : 'border-navy-950/15 bg-white text-navy-950'
             }`}
           >
             <Icon name="plus" size={16} />
@@ -41,7 +41,7 @@ export function FaqRow({ question, answer, defaultOpen }: { question: string; an
         }`}
       >
         <div className="overflow-hidden">
-          <p className="max-w-3xl pr-12 pb-7 leading-relaxed text-muted">{answer}</p>
+          <p className="max-w-3xl pr-4 pb-6 leading-relaxed text-muted sm:pr-12">{answer}</p>
         </div>
       </div>
     </li>
@@ -67,7 +67,7 @@ export function FAQ() {
           </div>
         </div>
 
-        <Reveal as="ul" delay={80} className="border-t border-navy-950/10 lg:col-span-8">
+        <Reveal as="ul" delay={80} className="space-y-3 lg:col-span-8">
           {faq.map((item, i) => (
             <FaqRow key={item.question} {...item} defaultOpen={i === 0} />
           ))}

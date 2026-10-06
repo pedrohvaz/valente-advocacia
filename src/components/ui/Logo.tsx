@@ -14,15 +14,15 @@ export function Logo({ tone = 'light' }: { tone?: 'light' | 'dark' }) {
     <span className="flex min-w-0 items-center gap-3">
       <span
         aria-hidden="true"
-        className="grid size-10 shrink-0 place-items-center border border-gold-500/70 font-serif text-xl text-gold-500"
+        className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-gold-400 to-gold-500 font-accent text-2xl text-navy-950 shadow-[inset_0_1px_0_rgba(255,255,255,0.4)]"
       >
         §
       </span>
       <span className="min-w-0 leading-none">
-        <span className={`block truncate font-serif text-[1.15rem] font-semibold tracking-wide sm:text-xl ${light ? 'text-white' : 'text-navy-950'}`}>
+        <span className={`block truncate font-display text-[1.05rem] font-semibold tracking-[-0.02em] sm:text-lg ${light ? 'text-white' : 'text-navy-950'}`}>
           {site.officeName}
         </span>
-        <span className={`mt-1 block text-[0.62rem] font-semibold tracking-[0.28em] uppercase ${light ? 'text-white/55' : 'text-muted'}`}>
+        <span className={`mt-1 block text-[0.6rem] font-medium tracking-[0.2em] uppercase ${light ? 'text-white/55' : 'text-muted'}`}>
           {site.location.city} · {site.location.stateCode}
         </span>
       </span>

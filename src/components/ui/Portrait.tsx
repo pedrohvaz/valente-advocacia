@@ -21,11 +21,11 @@ export function Portrait({
   placeholder,
   sizes = '(min-width: 1024px) 40vw, 100vw',
   priority = false,
-  className = 'aspect-[4/5]',
+  className = 'aspect-[4/5] rounded-4xl',
   imgClassName = '',
 }: PortraitProps) {
   return (
-    <div className={`relative w-full overflow-hidden rounded-sm bg-navy-900 ${className}`}>
+    <div className={`relative w-full overflow-hidden bg-navy-900 ${className}`}>
       {image ? (
         <img
           src={image.src}

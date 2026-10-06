@@ -50,8 +50,8 @@ function validate(f: Form): Errors {
 function Step({ n, title, error, errorId, children }: { n: number; title: string; error?: string; errorId: string; children: ReactNode }) {
   return (
     <fieldset className="min-w-0 border-t border-line pt-8 first:border-t-0 first:pt-0" aria-describedby={error ? errorId : undefined}>
-      <legend className="flex items-center gap-4 font-serif text-2xl text-navy-950">
-        <span className="grid size-9 place-items-center rounded-full border border-gold-500 font-serif text-base">{n}</span>
+      <legend className="flex items-center gap-3.5 font-display text-xl tracking-[-0.02em] text-navy-950">
+        <span className="grid size-9 place-items-center rounded-full bg-navy-950 font-display text-sm font-semibold text-gold-500">{n}</span>
         {title}
       </legend>
       <div className="mt-6">{children}</div>
@@ -65,7 +65,7 @@ function Step({ n, title, error, errorId, children }: { n: number; title: string
 }
 
 const chip =
-  'relative flex cursor-pointer items-center justify-center rounded-sm border border-navy-950/15 bg-white text-navy-950 transition-colors hover:border-navy-950/40 has-checked:border-navy-950 has-checked:bg-navy-950 has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-gold-500 has-disabled:cursor-not-allowed has-disabled:opacity-40'
+  'relative flex cursor-pointer items-center justify-center rounded-xl border border-navy-950/15 bg-white text-navy-950 transition-colors hover:border-navy-950/40 has-checked:border-navy-950 has-checked:bg-navy-950 has-checked:text-white has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-gold-500 has-disabled:cursor-not-allowed has-disabled:opacity-40'
 
 export function SchedulePage() {
   const uid = useId()
@@ -140,7 +140,7 @@ export function SchedulePage() {
   }
 
   const input =
-    'mt-2 block w-full rounded-sm border border-navy-950/15 bg-white px-4 py-3.5 text-base text-navy-950 placeholder:text-muted/70 transition-[border-color,box-shadow] hover:border-navy-950/35 focus:border-navy-950 focus:shadow-[0_0_0_3px_rgba(28,49,94,0.15)] focus:outline-none aria-invalid:border-red-700'
+    'mt-2 block w-full rounded-xl border border-navy-950/15 bg-white px-4 py-3.5 text-base text-navy-950 placeholder:text-muted/70 transition-[border-color,box-shadow] hover:border-navy-950/35 focus:border-navy-950 focus:shadow-[0_0_0_3px_rgba(28,49,94,0.15)] focus:outline-none aria-invalid:border-red-700'
 
   return (
     <>
@@ -160,11 +160,11 @@ export function SchedulePage() {
         <Container className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-12">
           <div className="lg:col-span-8">
             {status === 'sent' ? (
-              <div role="status" className="panel-in bg-white p-8 shadow-[0_30px_70px_-40px_rgba(11,19,43,0.45)] sm:p-12">
+              <div role="status" className="panel-in rounded-4xl bg-white p-8 shadow-[0_30px_70px_-40px_rgba(11,19,43,0.35)] sm:p-12">
                 <span className="grid size-14 place-items-center rounded-full bg-navy-950 text-gold-500">
                   <Icon name="check" size={28} />
                 </span>
-                <h2 className="mt-6 font-serif text-4xl text-navy-950">Solicitação enviada</h2>
+                <h2 className="mt-6 font-display text-4xl text-navy-950">Solicitação enviada</h2>
                 <p className="mt-4 text-lg leading-relaxed text-muted">
                   {site.scheduling.endpoint
                     ? 'Recebemos sua solicitação. A equipe do escritório entrará em contato para confirmar o horário.'
@@ -185,7 +185,7 @@ export function SchedulePage() {
               <form
                 onSubmit={onSubmit}
                 noValidate
-                className="space-y-10 bg-white p-6 shadow-[0_30px_70px_-40px_rgba(11,19,43,0.45)] sm:p-10"
+                className="space-y-10 rounded-4xl border border-navy-950/[0.07] bg-white p-6 shadow-[0_30px_70px_-40px_rgba(11,19,43,0.35)] sm:p-10"
               >
                 <Step n={1} title="Formato do atendimento" error={errors.modality} errorId={err('modality')}>
                   <div id={`${id('modality')}-group`} className="grid gap-3 sm:grid-cols-2">
@@ -249,7 +249,7 @@ export function SchedulePage() {
                           <span className="text-[0.7rem] font-semibold tracking-[0.12em] uppercase opacity-70">
                             {formatDay(d, { weekday: 'short' })}
                           </span>
-                          <span className="mt-1 font-serif text-3xl leading-none">{d.getDate()}</span>
+                          <span className="mt-1 font-display text-3xl leading-none">{d.getDate()}</span>
                           <span className="mt-1 text-xs opacity-70">{formatDay(d, { month: 'short' })}</span>
                         </label>
                       ))
@@ -326,7 +326,7 @@ export function SchedulePage() {
                   </p>
                 </div>
                 {status === 'error' && (
-                  <p role="alert" className="border-l-2 border-red-700 bg-red-50 p-4 text-sm text-red-800">
+                  <p role="alert" className="rounded-2xl bg-red-50 p-4 text-sm text-red-800">
                     Não foi possível enviar agora. Tente novamente ou fale conosco pelo WhatsApp.
                   </p>
                 )}
@@ -336,7 +336,7 @@ export function SchedulePage() {
 
           {/* Resumo */}
           <aside aria-label="Resumo do agendamento" className="lg:col-span-4">
-            <div className="on-dark relative overflow-hidden bg-navy-950 p-7 text-white sm:p-8 lg:sticky lg:top-28">
+            <div className="on-dark relative overflow-hidden rounded-4xl bg-navy-950 p-7 text-white sm:p-8 lg:sticky lg:top-28">
               <div aria-hidden="true" className="pattern-lines absolute inset-0 opacity-70" />
               <div className="relative">
                 <p className="eyebrow text-gold-500">Resumo</p>

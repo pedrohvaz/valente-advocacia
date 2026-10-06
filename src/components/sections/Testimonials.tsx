@@ -27,7 +27,7 @@ export function Testimonials() {
     >
       <span
         aria-hidden="true"
-        className="pointer-events-none absolute -top-10 right-[-2rem] font-serif text-[22rem] leading-none text-white/[0.03] select-none sm:-top-20 sm:text-[32rem]"
+        className="pointer-events-none absolute -top-10 right-[-2rem] font-accent text-[22rem] leading-none text-white/[0.04] select-none sm:-top-20 sm:text-[32rem]"
       >
         &ldquo;
       </span>
@@ -54,7 +54,7 @@ export function Testimonials() {
               >
                 <Icon name="arrowRight" size={18} />
               </button>
-              <span className="font-serif text-lg text-white/60" aria-hidden="true">
+              <span className="font-display text-lg text-white/60" aria-hidden="true">
                 <span className="text-white">{pad(index + 1)}</span> / {pad(total)}
               </span>
             </Reveal>
@@ -75,9 +75,9 @@ export function Testimonials() {
               key={index}
               aria-live="polite"
               aria-label={`Depoimento ${index + 1} de ${total}`}
-              className="panel-in border-l border-gold-500/60 pl-7 sm:pl-12"
+              className="panel-in glass rounded-4xl p-7 sm:p-12"
             >
-              <blockquote className="font-serif text-[1.65rem] leading-[1.35] text-pretty text-white sm:text-[2.15rem] lg:text-[2.4rem]">
+              <blockquote className="font-display text-[1.45rem] leading-[1.35] tracking-[-0.025em] text-pretty text-white sm:text-[1.9rem] lg:text-[2.1rem]">
                 <p>
                   <em className="not-italic text-gold-500">&ldquo;</em>
                   {t.quote}
@@ -85,7 +85,7 @@ export function Testimonials() {
                 </p>
               </blockquote>
               <figcaption className="mt-10 flex items-center gap-4">
-                <span aria-hidden="true" className="grid size-12 shrink-0 place-items-center rounded-full bg-white/10 font-serif text-lg text-gold-500">
+                <span aria-hidden="true" className="grid size-12 shrink-0 place-items-center rounded-full bg-gold-500 font-display text-sm font-semibold text-navy-950">
                   {t.author.replace(/[^A-ZÀ-Ú]/g, '').slice(0, 2)}
                 </span>
                 <span>
@@ -96,12 +96,12 @@ export function Testimonials() {
             </figure>
 
             {total > 1 && (
-              <div className="mt-12 flex gap-2 pl-7 sm:pl-12" aria-hidden="true">
+              <div className="mt-8 flex gap-2" aria-hidden="true">
                 {testimonials.map((_, i) => (
                   <span
                     key={i}
-                    className={`h-px transition-[width,background-color] duration-500 ${
-                      i === index ? 'w-12 bg-gold-500' : 'w-6 bg-white/25'
+                    className={`h-1.5 rounded-full transition-[width,background-color] duration-500 ${
+                      i === index ? 'w-10 bg-gold-500' : 'w-4 bg-white/25'
                     }`}
                   />
                 ))}

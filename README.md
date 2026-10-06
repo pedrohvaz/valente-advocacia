@@ -13,6 +13,15 @@ npm run build     # gera /dist (estático, pronto para Netlify, Vercel, Hostinge
 npm run preview   # serve o /dist localmente
 ```
 
+## Publicação
+
+**Demonstração online:** https://pedrohvaz.github.io/valente-advocacia/
+
+O deploy é automático: cada `git push` na branch `main` roda o workflow `.github/workflows/deploy.yml`, que gera o site e publica no GitHub Pages (cerca de 1 minuto).
+
+- O prefixo do endereço (`/valente-advocacia/`) e a URL pública são definidos no workflow pelas variáveis `BASE_PATH` e `VITE_SITE_URL`. Em domínio próprio, basta não definir `BASE_PATH`.
+- A versão de demonstração tem `seo.indexable: false` (noindex em todas as páginas). Em um site real, mude para `true`.
+
 ## Páginas
 
 Todas são geradas como HTML estático no build, com título, descrição, Open Graph e dados estruturados próprios.

@@ -17,6 +17,7 @@ export type Route =
   | { kind: 'article'; path: string; article: Article }
   | { kind: 'schedule'; path: '/agendar/' }
   | { kind: 'privacy'; path: '/privacidade/' }
+  | { kind: 'admin'; path: '/admin/' }
   | { kind: 'notFound'; path: '/404/' }
 
 export const routes: Route[] = [
@@ -26,6 +27,7 @@ export const routes: Route[] = [
   ...articles.map((article) => ({ kind: 'article' as const, path: articlePath(article), article })),
   { kind: 'schedule', path: '/agendar/' },
   { kind: 'privacy', path: '/privacidade/' },
+  { kind: 'admin', path: '/admin/' },
 ]
 
 export const notFoundRoute: Route = { kind: 'notFound', path: '/404/' }

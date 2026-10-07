@@ -8,6 +8,7 @@ import { Icon, type IconName } from '../components/ui/Icon'
 import { PageHero } from '../components/ui/PageHero'
 import { track } from '../lib/analytics'
 import { formatPhone, isEmail, isPhone } from '../lib/format'
+import { pushInbox } from '../lib/inbox'
 import { availableDays, dayKey, formatDay, formatLongDate, slotsFor } from '../lib/schedule'
 import { whatsappLink } from '../lib/whatsapp'
 import { to } from '../lib/paths'
@@ -105,6 +106,15 @@ export function SchedulePage() {
 
     track('schedule_submit', { subject: form.subject, modality: form.modality })
     const when = selectedDay ? `${formatLongDate(selectedDay)}, às ${form.slot}` : ''
+    pushInbox({
+      name: form.name.trim(),
+      phone: form.phone,
+      email: form.email.trim(),
+      subject: form.subject,
+      message: form.notes.trim() || 'Solicitação de agendamento pelo site.',
+      source: 'agendamento',
+      preferred: `${form.day} ${form.slot} · ${form.modality}`,
+    })
 
     if (!site.scheduling.endpoint) {
       const text = [

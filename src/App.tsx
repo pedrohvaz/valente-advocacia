@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { Footer } from './components/sections/Footer'
 import { Header } from './components/sections/Header'
 import { WhatsAppButton } from './components/sections/WhatsAppButton'
@@ -15,6 +15,9 @@ import { SchedulePage } from './pages/SchedulePage'
 import { matchRoute, type Route } from './routes'
 import { metaFor } from './seo'
 
+// Painel carregado sob demanda: não pesa no site público.
+const AdminApp = lazy(() => import('./admin/AdminApp'))
+
 function Page({ route }: { route: Route }) {
   switch (route.kind) {
     case 'home':
@@ -30,8 +33,20 @@ function Page({ route }: { route: Route }) {
     case 'privacy':
       return <Privacy />
     case 'notFound':
+    case 'admin':
       return <NotFoundPage />
   }
+}
+
+/**
+ * O painel só existe no navegador (dados locais): o HTML pré-renderizado
+ * traz apenas o fundo, e o código do painel é baixado após a montagem.
+ */
+function AdminRoot() {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+  const shell = <div className="min-h-svh bg-navy-950" />
+  return mounted ? <Suspense fallback={shell}>{<AdminApp />}</Suspense> : shell
 }
 
 /** `path` vem de window.location no navegador e da lista de rotas no build. */
@@ -44,6 +59,8 @@ export default function App({ path }: { path: string }) {
   useEffect(() => {
     if (import.meta.env.DEV) document.title = metaFor(route).title
   }, [route])
+
+  if (route.kind === 'admin') return <AdminRoot />
 
   return (
     <ConsentProvider>

@@ -164,6 +164,15 @@ export function metaFor(route: Route): Meta {
         type: 'website',
         schema: [],
       }
+    case 'admin':
+      return {
+        title: `Painel do escritório | ${office}`,
+        description: 'Área restrita do escritório.',
+        path: route.path,
+        type: 'website',
+        noindex: true,
+        schema: [],
+      }
     case 'notFound':
       return {
         title: `Página não encontrada | ${office}`,

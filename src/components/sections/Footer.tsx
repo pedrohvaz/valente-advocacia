@@ -118,7 +118,12 @@ export function Footer({ isHome = false }: { isHome?: boolean }) {
           <p>
             © {site.seo.copyrightYear} {site.officeName}. Todos os direitos reservados.
           </p>
-          <p>{site.lawyer.name} · {oabLabel}</p>
+          <p className="flex flex-wrap items-center gap-x-4 gap-y-1">
+            <span>{site.lawyer.name} · {oabLabel}</span>
+            <a href={to('/admin/')} className="inline-flex items-center gap-1.5 text-white/60 transition-colors hover:text-white">
+              <Icon name="badge" size={14} /> Área do escritório
+            </a>
+          </p>
         </div>
 
         {site.isPortfolio && (

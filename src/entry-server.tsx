@@ -19,5 +19,5 @@ export const pages = [...routes, notFoundRoute].map((route) => ({
   notFound: route.kind === 'notFound',
 }))
 
-export const sitemap = () => sitemapXml(routes.map((r) => r.path))
+export const sitemap = () => sitemapXml(routes.filter((r) => r.kind !== 'admin').map((r) => r.path))
 export const robots = robotsTxt

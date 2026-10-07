@@ -22,6 +22,23 @@ O deploy é automático: cada `git push` na branch `main` roda o workflow `.gith
 - O prefixo do endereço (`/valente-advocacia/`) e a URL pública são definidos no workflow pelas variáveis `BASE_PATH` e `VITE_SITE_URL`. Em domínio próprio, basta não definir `BASE_PATH`.
 - A versão de demonstração tem `seo.indexable: false` (noindex em todas as páginas). Em um site real, mude para `true`.
 
+## Painel administrativo (`/admin/`)
+
+Gestão do escritório em **modo demonstração**: dados fictícios salvos apenas no navegador (localStorage), sem servidor.
+
+| Módulo | Funções |
+|---|---|
+| Visão geral | Indicadores, próximos prazos com urgência, honorários dos últimos 6 meses, contatos recentes, processos por área |
+| Agenda e prazos | Lista e calendário; **calculadora de prazo processual** em dias úteis (CPC, arts. 219, 220 e 224 — feriados nacionais e recesso forense de 20/12 a 20/01) |
+| Processos | Número **CNJ validado** pelo dígito verificador, segmento do Judiciário, fase, situação, linha do tempo de andamentos, prazos e honorários do caso |
+| Clientes | PF/PJ com **CPF/CNPJ validados**, ficha com processos e financeiro |
+| Contatos | Funil kanban (arrastar e soltar). Mensagens e agendamentos enviados pelo site entram automaticamente; converte contato em cliente |
+| Financeiro | Honorários parcelados, êxito, despesas reembolsáveis, pagos/pendentes/em atraso, exportação CSV |
+| Documentos | Procuração (com poderes especiais do art. 105 do CPC), contrato de honorários, declaração de hipossuficiência e recibo com valor por extenso — preenchidos com os dados do cadastro, prontos para imprimir/PDF |
+| Configurações | Backup/restauração em JSON e restauração da demonstração |
+
+Código em `src/admin/`. Toda a persistência passa por `src/admin/store.tsx`: para produção, troque `load`/`persist` por uma API com autenticação (ex.: Supabase com RLS e 2FA) — as telas não precisam mudar. Regras jurídicas (CNJ, CPF/CNPJ, prazos) em `src/admin/lib/legal.ts`.
+
 ## Páginas
 
 Todas são geradas como HTML estático no build, com título, descrição, Open Graph e dados estruturados próprios.

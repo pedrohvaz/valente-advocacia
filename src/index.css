@@ -284,6 +284,25 @@
 }
 
 @media print {
+  /* Documentos do painel: imprime só a folha */
+  body:has(#doc-print) * {
+    visibility: hidden;
+  }
+  body:has(#doc-print) #doc-print,
+  body:has(#doc-print) #doc-print * {
+    visibility: visible;
+  }
+  body:has(#doc-print) #doc-print {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    box-shadow: none;
+    padding: 0;
+  }
+  body:has(#doc-print) mark {
+    background: none;
+    color: inherit;
+  }
   [class*='opacity-0'] {
     opacity: 1 !important;
     transform: none !important;

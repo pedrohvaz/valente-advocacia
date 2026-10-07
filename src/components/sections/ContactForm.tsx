@@ -3,6 +3,7 @@ import { site } from '../../config/site'
 import { contactSubjects } from '../../data/content'
 import { track } from '../../lib/analytics'
 import { formatPhone, isEmail, isPhone } from '../../lib/format'
+import { pushInbox } from '../../lib/inbox'
 import { whatsappLink } from '../../lib/whatsapp'
 import { Button } from '../ui/Button'
 import { Icon } from '../ui/Icon'
@@ -58,6 +59,7 @@ export function ContactForm() {
     }
 
     track('contact_form_submit', { subject: fields.subject })
+    pushInbox({ name: fields.name.trim(), phone: fields.whatsapp, email: fields.email.trim(), subject: fields.subject, message: fields.message.trim(), source: 'site' })
 
     // Sem endpoint configurado: envia a mensagem pelo WhatsApp.
     if (!site.form.endpoint) {
